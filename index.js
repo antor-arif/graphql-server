@@ -1,5 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
+import typeDefs from './typeDefs';
+import { getAllBooks } from './controllers/books';
 
 const books = [
   {
@@ -12,21 +14,10 @@ const books = [
   },
 ];
 
-const typeDefs = `#graphql
-  
-  type Book {
-    title: String
-    author: String
-  }
-
-  type Query {
-    books: [Book]
-  }
-`;
 
 const resolvers = {
   Query: {
-    books: () => books,
+    books: getAllBooks,
   },
 };
 
