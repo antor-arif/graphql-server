@@ -15,6 +15,25 @@ const typeDefs = `#graphql
     couponCode: String
   }
 
+  type SocialLinks {
+    facebook: String
+    twitter: String
+    instagram: String
+    linkedin: String
+  }
+
+  type Author {
+    name: String
+    bio: String
+    address: String
+    profileImage: String
+    dateOfBirth: String
+    email: String
+    phone: String
+    website: String
+    socialLinks: SocialLinks
+  }
+
   type Query {
     books: [Book]
   }
