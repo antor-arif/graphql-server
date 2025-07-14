@@ -1,3 +1,4 @@
+const { addAuthorController, updateAuthorController, deleteAuthorController } = require("../controllers/author.js");
 const { getAllBooks, addBookController, updateBookController, deleteBookController } = require("../controllers/books");
 const Author = require('../models/author.js');
 const Book = require('../models/books.js');
@@ -19,15 +20,27 @@ const resolvers = {
     }
   },
   Mutation: {
-    addBook: async(_, props) => {
-      await addBookController(props);
+    // Books mutations
+    addBook: async(_, bookData) => {
+      await addBookController(bookData);
     },
-    updateBook: async(_, { id, props }) => {
-      return await updateBookController(id, props);
+    updateBook: async(_, { id, bookData }) => {
+      return await updateBookController(id, bookData);
     },
     deleteBook: async(_, { id }) => {
       await deleteBookController(id);
+    },
+    // Authors mutations
+    addAuthor: async(_, { authorData }) => {
+      await addAuthorController(authorData);
+    },
+    updateAuthor: async(_, { id, authorData }) => {
+      return await updateAuthorController(id, authorData);
+    },
+    deleteAuthor: async(_, { id }) => {
+      return await deleteAuthorController(id);
     }
+
   }
 };
 

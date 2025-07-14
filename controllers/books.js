@@ -21,7 +21,7 @@ const addBookController = async(props)  => {
     const { title, author, description, publishedDate, genre, pages, coverImage, price, stock, ratings, discountPrice, couponCode } = props;
 
     if(!title || !author || !price || !description) {
-        throw new Error("Title, author, description and price are required fields.");
+        return { error: "Title, author, price, and description are required fields." };
       }
       const newBook = new Book({
         title,
@@ -41,7 +41,7 @@ const addBookController = async(props)  => {
         const savedBook = await newBook.save();
         return savedBook;
       } catch (error) {
-        throw new Error("Error saving book: " + error.message);
+        return { error: "Error saving book: " + error.message };
       }
 };
 
@@ -69,14 +69,14 @@ const updateBookController = async(id, props) => {
         const updatedBook = await book.save();
         return updatedBook;
     } catch (error) {
-        throw new Error("Error updating book: " + error.message);
+        return { error: "Error updating book: " + error.message };
     }
 };
 
 const deleteBookController = async(id) => {
     const book = await Book.findByIdAndDelete(id);
     if (!book) {
-        throw new Error("Book not found");
+        return { error: "Book not found" };
     }
     return { message: "Book deleted successfully" };
 };
