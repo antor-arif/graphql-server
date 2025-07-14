@@ -38,16 +38,6 @@ const typeDefs = `#graphql
   type Query {
     books: [Book]
   }
-  Book: {
-    author: async(parent) => {
-      return await Author.findById(parent.author);
-    }
-  }
-  Author:{
-    books: async(parent) => {
-      return await Book.find({ author: parent._id });
-    }
-  }
 `;
 
 
