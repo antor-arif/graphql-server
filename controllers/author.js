@@ -3,6 +3,8 @@ const Author = require('../models/author.js');
 const addAuthorController = async (authorData) => {
     const { name, bio, address, profileImage, dateOfBirth, email, phone, website, socialLinks } = authorData;
 
+    console.log("Adding author with data:", authorData);
+
     if (!name || !email) {
         throw new Error("Name and email are required fields.");
     }
@@ -17,13 +19,14 @@ const addAuthorController = async (authorData) => {
         phone,
         website,
         socialLinks
-    });
+    })
 
     try {
         const savedAuthor = await newAuthor.save();
+        
         return savedAuthor;
     } catch (error) {
-        return { error: "Error saving author: " + error.message };
+        throw new Error("Error saving author: " + error.message);
     }
 };
 
@@ -32,7 +35,7 @@ const updateAuthorController = async (id, authorData) => {
 
     const author = await Author.findById(id);
     if (!author) {
-        return { error: "Author not found" };
+        throw new Error("Author not found");
     }
 
     if (name) author.name = name;
@@ -49,7 +52,7 @@ const updateAuthorController = async (id, authorData) => {
         const updatedAuthor = await author.save();
         return updatedAuthor;
     } catch (error) {
-        return { error: "Error updating author: " + error.message };
+       throw new Error("Error updating author: " + error.message);
     }
 };
 
@@ -58,14 +61,24 @@ const updateAuthorController = async (id, authorData) => {
 const deleteAuthorController = async (id) => {
     const author = await Author.findByIdAndDelete(id);
     if (!author) {
-        return { error: "Author not found" };
+        throw new Error("Author not found");
     }
     return { message: "Author deleted successfully" };
+};
+
+const getAllAuthorsController = async () => {
+    try {
+        const authors = await Author.find();
+        return authors;
+    } catch (error) {
+        throw new Error("Error fetching authors: " + error.message);
+    }
 };
 
 
 module.exports = {
     addAuthorController,
     updateAuthorController,
-    deleteAuthorController
+    deleteAuthorController,
+    getAllAuthorsController
 }

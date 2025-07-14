@@ -1,5 +1,6 @@
-const { addAuthorController, updateAuthorController, deleteAuthorController } = require("../controllers/author.js");
+const { addAuthorController, updateAuthorController, deleteAuthorController, getAllAuthorsController } = require("../controllers/author.js");
 const { getAllBooks, addBookController, updateBookController, deleteBookController } = require("../controllers/books");
+const author = require("../models/author.js");
 const Author = require('../models/author.js');
 const Book = require('../models/books.js');
 
@@ -12,6 +13,16 @@ const resolvers = {
         throw new Error("Book not found");
       }
       return book;
+    },
+    authors: async() => {
+      return  await getAllAuthorsController();
+    },
+    author: async(_, { id }) => {
+      const author = await Author.findById(id);
+      if (!author) {
+        throw new Error("Author not found");
+      }
+      return author;
     }
   },
   Book: {
@@ -22,17 +33,17 @@ const resolvers = {
   Mutation: {
     // Books mutations
     addBook: async(_, bookData) => {
-      await addBookController(bookData);
+      return await addBookController(bookData);
     },
     updateBook: async(_, { id, bookData }) => {
       return await updateBookController(id, bookData);
     },
     deleteBook: async(_, { id }) => {
-      await deleteBookController(id);
+      return await deleteBookController(id);
     },
     // Authors mutations
-    addAuthor: async(_, { authorData }) => {
-      await addAuthorController(authorData);
+    addAuthor: async(_,  {authorData} ) => {
+       return await addAuthorController(authorData);
     },
     updateAuthor: async(_, { id, authorData }) => {
       return await updateAuthorController(id, authorData);

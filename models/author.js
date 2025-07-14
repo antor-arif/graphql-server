@@ -35,4 +35,4 @@ const authorSchema = new Schema({
     },
 },{timestamps: true});
 
-const Author = model('Author', authorSchema);
+module.exports = model("Author", authorSchema);

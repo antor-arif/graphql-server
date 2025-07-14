@@ -48,6 +48,7 @@ const typeDefs = `#graphql
     ratings: Float
     discountPrice: Float
     couponCode: String
+    id: ID!
   }
 
   type SocialLinks {
@@ -67,14 +68,17 @@ const typeDefs = `#graphql
     phone: String
     website: String
     socialLinks: SocialLinks
+    id: ID!
   }
 
   type Query {
     books: [Book],
-    book(id: ID!): Book
+    book(id: ID!): Book,
+    authors: [Author],
+    author(id: ID!): Author
   }
   type Mutation {
-    
+
     addBook(bookData: BookInput): Book
     updateBook(id: ID!, bookData: BookInput): Book
     deleteBook(id: ID!): String
