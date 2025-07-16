@@ -35,22 +35,6 @@ const typeDefs = `#graphql
   couponCode: String
   }
 
-  type Book {
-    title: String
-    author: String
-    description: String
-    publishedDate: String
-    genre: String
-    pages: Int
-    coverImage: String
-    price: Float
-    stock: Int
-    ratings: Float
-    discountPrice: Float
-    couponCode: String
-    id: ID!
-  }
-
   type SocialLinks {
     facebook: String
     twitter: String
@@ -70,6 +54,23 @@ const typeDefs = `#graphql
     socialLinks: SocialLinks
     id: ID!
   }
+
+  type Book {
+    title: String
+    author: Author
+    description: String
+    publishedDate: String
+    genre: String
+    pages: Int
+    coverImage: String
+    price: Float
+    stock: Int
+    ratings: Float
+    discountPrice: Float
+    couponCode: String
+    id: ID!
+  }
+
 
   type Query {
     books: [Book],

@@ -32,7 +32,7 @@ const resolvers = {
   },
   Mutation: {
     // Books mutations
-    addBook: async(_, bookData) => {
+    addBook: async(_, {bookData}) => {
       return await addBookController(bookData);
     },
     updateBook: async(_, { id, bookData }) => {
